@@ -1,0 +1,114 @@
+<div class="header">
+  <span>user: {{user}}</span>
+  <button pButton pRipple (click)="logout()" type="submit" label="Logout"
+          class="p-button-rounded p-button-secondary"></button>
+</div>
+<div class="mainDiv">
+  <div class="animate__animated animate__fadeInLeft" id="adaptiveGraph">
+    <svg width="400" height="400"
+         xmlns="http://www.w3.org/2000/svg" (click)="setPoint($event)">
+      <line x1="0" x2="400" y1="200" y2="200" stroke="black"/>
+      <text x="385" y="185">X</text>
+      <polygon points="400,200 385,206 385,194" stroke="black"/>
+      <line x1="270" x2="270" y1="207" y2="193" stroke="black"/>
+      <text x="260" y="185">R/2</text>
+      <line x1="340" x2="340" y1="207" y2="193" stroke="black"/>
+      <text x="335" y="185">R</text>
+      <line x1="130" x2="130" y1="207" y2="193" stroke="black"/>
+      <text x="120" y="185">R/2</text>
+      <line x1="60" x2="60" y1="207" y2="193" stroke="black"/>
+      <text x="55" y="185">R</text>
+      <line x1="200" x2="200" y1="0" y2="400" stroke="black"/>
+      <text x="215" y="15">Y</text>
+      <polygon points="200,0 194,15 206,15" stroke="black"/>
+      <line x1="207" x2="193" y1="270" y2="270" stroke="black"/>
+      <text x="215" y="275">R/2</text>
+      <line x1="207" x2="193" y1="340" y2="340" stroke="black"/>
+      <text x="215" y="345">R</text>
+      <line x1="207" x2="193" y1="130" y2="130" stroke="black"/>
+      <text x="215" y="135">R/2</text>
+      <line x1="207" x2="193" y1="60" y2="60" stroke="black"/>
+      <text x="215" y="65">R</text>
+      <rect x="60" y="60" height="140" width="140" fill="rgb(00, 33, 55)" fill-opacity="0.9"/>
+      <polygon points="200,60 270,200 200,200" fill="rgb(00, 33, 55)" fill-opacity="0.9"/>
+      <path d="M200 200 L 340 200 C 340 270 270 340 200 340" fill="rgb(00, 33, 55)"
+            fill-opacity="0.9"/>
+      <ng-container *ngIf="r.valid">
+        <circle class="animate__animated animate__fadeIn" *ngFor="let res of results;" r="3"
+                [attr.cx]="res.x * 140 / r.value + 200"
+                [attr.cy]="res.y * -140 / r.value + 200"
+                [attr.fill]="((res.x < 0 && res.y > 0 && res.x > -r.value && res.y < r.value)
+              || (res.x > 0 && res.y > 0 && res.y <= -2 * res.x + r.value)
+              || (res.x >= 0 && res.y <= 0 && res.x * res.x + res.y * res.y <= r.value * r.value))?'red':'black'">
+        </circle>
+      </ng-container>
+    </svg>
+  </div>
+  <div class="animate__animated animate__fadeInDown" id="adaptiveForm">
+    <form [formGroup]="pointForm" class="p-grid p-fluid">
+      <div class="inputY">
+        <span class="p-float-label">
+          <input id="y" name="y" formControlName="y" type="text" pInputText>
+          <label for="y" *ngIf="true" style="color: gray">Y</label>
+        </span>
+      </div>
+      <div style="display: flex">
+        <div class="inputR">
+          <label>R</label>
+          <p-inputNumber style="width: 100%" name="r" formControlName="r" [showButtons]="true" buttonLayout="vertical"
+                         spinnerMode="vertical"
+                         inputId="vertical"
+                         decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary"
+                         incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="-5" [max]="3">
+          </p-inputNumber>
+        </div>
+        <div class="inputX">
+          <label>X</label>
+          <p-inputNumber style="width: 100% " name="x" formControlName="x" [showButtons]="true" buttonLayout="vertical"
+                         spinnerMode="vertical"
+                         inputId="vertical"
+                         decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary"
+                         incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="-5" [max]="3">
+          </p-inputNumber>
+        </div>
+      </div>
+      <div style="text-align: center">
+        <small *ngIf="r.dirty  &&  r.invalid" class="p-invalid">Радиус введен не верно</small><br>
+        <small *ngIf="y.dirty  &&  y.invalid" class="p-invalid">Y введен не верно</small><br>
+        <small *ngIf="x.dirty  &&  x.invalid" class="p-invalid">X введен не верно</small>
+      </div>
+      <div style="margin: 5%;">
+        <button pButton pRipple type="button" (click)="sendPoint()" [disabled]="y.invalid || x.invalid || r.invalid"
+                label="Send" class="p-button-rounded p-button-secondary"></button>
+      </div>
+      <div style="margin: 5%;;">
+        <button pButton pRipple type="button" (click)="resetPoint();" label="Reset"
+                class="p-button-rounded p-button-secondary"></button>
+      </div>
+    </form>
+  </div>
+  <div class="animate__animated animate__fadeInDown" id="table">
+    <p-scrollPanel [style]="{width: '100%', height: '550px'}">
+      <p-table [value]="results">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Y</th>
+            <th>X</th>
+            <th>R</th>
+            <th>RESULT</th>
+            <th>TIME</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-result>
+          <tr class="animate__animated animate__fadeInDown">
+            <td>{{result.y}}</td>
+            <td>{{result.x}}</td>
+            <td>{{result.r}}</td>
+            <td>{{result.result}}</td>
+            <td>{{result.time}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-scrollPanel>
+  </div>
+</div>

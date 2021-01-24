@@ -1,0 +1,17 @@
+.notFound{
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.header {
+  background: rgb(00, 33, 55);
+  font-family: serif;
+  font-size: 28px;
+  font-style: oblique;
+  color: white;
+  padding: 15px;
+}
+
+.header span:first-child {
+  float: right;
+}

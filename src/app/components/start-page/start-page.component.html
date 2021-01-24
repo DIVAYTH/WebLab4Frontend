@@ -1,0 +1,37 @@
+<div class="header">
+  <span>Вариант 2756</span>
+  <span>Попов Даниил Павлович, P3231</span>
+</div>
+<form [formGroup]="userForm" class="animate__animated animate__backInDown">
+  <div>
+    <h1 class="animate__animated animate__rubberBand animate__delay-1s">Welcome</h1>
+    <div class="inputLP">
+      <span class="p-float-label">
+        <input id="login" name="login" type="text" formControlName="login" pInputText>
+        <label for="login" *ngIf="true" style="color: gray">Login</label>
+      </span>
+      <small *ngIf="login.dirty  &&  login.invalid" class="p-invalid">Логин должен быть от 6 до 12 символов</small>
+    </div>
+    <div class="inputLP">
+      <span class="p-float-label">
+        <input id="passwordInput" type="password" formControlName="password" pInputText>
+        <label for="passwordInput" *ngIf="true" style="color: gray">Password</label>
+      </span>
+      <small *ngIf="password.dirty  && password.invalid" class="p-invalid">Пароль должен быть от 6 до 12
+        символов</small>
+    </div>
+    <div class="result" [style.color]="auth.success==true?'green':'red'">
+      <span>{{auth.result}}</span>
+    </div>
+    <div class="lac">
+      <button pButton pRipple type="submit" label="Log in" class="p-button-rounded p-button-secondary"
+              [disabled]="login.invalid || password.invalid"
+              (click)="authorization(); userForm.reset()"></button>
+    </div>
+    <div>
+      <button pButton pRipple type="submit" label="Create new Account" class="p-button-rounded p-button-secondary"
+              [disabled]="login.invalid || password.invalid"
+              (click)="registration(); userForm.reset() "></button>
+    </div>
+  </div>
+</form>

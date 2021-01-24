@@ -1,0 +1,60 @@
+.header {
+  background: rgb(00, 33, 55);
+  font-family: serif;
+  font-size: 30px;
+  font-style: oblique;
+  color: white;
+  padding: 15px;
+  display: flex;
+}
+
+.header span{
+  width: 90%;
+}
+
+.header button {
+  width: 10%;
+  font-size: 16px;
+  font-style: oblique;
+  font-family: serif;
+  color: rgb(00, 33, 55);
+}
+
+.mainDiv {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.inputY {
+  width: 90%;
+  margin: 5%;
+}
+
+.inputR {
+  width: 100%;
+  margin: 10% 10% 0 10%;
+  text-align: center
+}
+
+.inputX {
+  width: 100%;
+  margin: 10% 10% 0 10%;
+  text-align: center
+}
+
+label {
+  display: block;
+  color: gray
+}
+
+rect:hover,
+path:hover,
+polygon:hover {
+  fill: rgba(00, 33, 55, 0.9);
+}
+
+circle{
+  transition: 1s;
+}
+
+

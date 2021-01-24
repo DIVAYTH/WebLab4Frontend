@@ -1,1 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+}
+
+@media screen and (max-width: 756px) {
+  .adaptiveContainer {
+    min-width: 756px;
+  }
+
+  #adaptiveGraph{
+    margin: 2%;
+    width: 50%;
+  }
+
+  #adaptiveForm {
+    margin: 2%;
+    width: 50%;
+  }
+
+  #table {
+     width: 100%;
+     margin: 2%;
+   }
+}
+
+@media screen and (max-width: 1247px) {
+  .adaptiveContainer {
+    min-width: 756px;
+    max-width: 1247px;
+  }
+
+  #adaptiveGraph{
+    margin: 2%;
+    width: 50%;
+  }
+
+  #adaptiveForm {
+    margin: 2%;
+    width: 30%;
+  }
+
+  #table {
+    width: 100%;
+    margin: 2%;
+  }
+
+}
+
+@media screen and (min-width: 1247px) {
+  .adaptiveContainer {
+    min-width: 1247px;
+  }
+
+  #adaptiveGraph{
+    margin: 2%;
+    width: 25%;
+  }
+
+  #adaptiveForm {
+    margin: 2%;
+    width: 10%;
+  }
+
+  #table {
+    width: 50%;
+    margin: 2%;
+  }
+}
+
